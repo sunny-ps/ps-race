@@ -56,7 +56,7 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
   const [mascotX, setMascotX] = useState(mascotAttributes.x);
   const [mascotRotation, setMascotRotation] = useState(0);
   const [gapTextPosX, setGapTextPosX] = useState(0);
-  const [workSoldTextPosX, setWorkSoldTextPosX] = useState(1500);
+  const [workSoldTextPosX, setWorkSoldTextPosX] = useState(foodSpriteAttributes.x! + 250);
   const [trackLimits, setTrackLimits] = useState({
     start: 0,
     finish: 0,
@@ -75,12 +75,12 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
   // const mascotX = useRef(mascotAttributes.x);
   const percentTextX = useRef(10);
   const finalPosX = useRef(mascotAttributes.x);
-  const workSoldTextFinalPosX = useRef(-10);
   // initial position of the remaining gap container goes over bounds to keep it hidden
 
   const speedConstant = useRef(1.5 * (2 / app.renderer.resolution));
 
   const FONT_FAMILY = "VT323";
+  const WORK_SOLD_TEXT_FINAL_POS_X = -10;
 
   const statsTextStyle = new TextStyle({
     fontFamily: FONT_FAMILY,
@@ -114,7 +114,6 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
   const gamma = 0.8;
 
   useEffect(() => {
-    console.log(mascotAttributes.x);
     // set the local bounds of the entire container on the intial render
     setContainerBounds(containerRef.current?.getLocalBounds()!);
     // bounds comes up as a weird decimal number, hence we use ceiling
@@ -172,13 +171,13 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
 
     if (mascotX! >= finalPosX.current! && getIsFinishedRacing()) {
       // slide in the work sold text first once the race is completed
-      if (workSoldTextPosX > workSoldTextFinalPosX.current) {
+      if (workSoldTextPosX > WORK_SOLD_TEXT_FINAL_POS_X) {
         setWorkSoldTextPosX(workSoldTextPosX - 6);
       }
 
       // slide in the revenue gap after the work sold text is visible
       if (
-        workSoldTextPosX <= workSoldTextFinalPosX.current &&
+        workSoldTextPosX <= WORK_SOLD_TEXT_FINAL_POS_X &&
         gapTextPosX > foodRef.current?.x! + 75
       ) {
         setGapTextPosX(gapTextPosX - 2);
