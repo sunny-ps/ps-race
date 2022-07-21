@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-image: url("/texture-grass.png");
+  background-repeat: repeat;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.revenue-rows {
+  @apply border-[#b0b0b0] border-r border-l;
+}
+
+.revenue-rows td:not(:first-child) {
+  @apply text-right px-12;
+}
+
+.revenue-rows > * {
+  @apply py-3;
+}
