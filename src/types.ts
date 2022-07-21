@@ -60,8 +60,7 @@ export interface SoundStore {
   playVictoryAudio: () => void;
   pauseRaceAudio: () => void;
   pauseVictoryAudio: () => void;
-  mute: () => void;
-  unmute: () => void;
+  setIsMute: () => void;
 }
 
 export interface ConfettiStore {
