@@ -275,7 +275,7 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
       */}
 
       <Container x={workSoldTextPosX}>
-        <Sprite image="/Coin.svg" x={200} y={90} scale={1.1} />
+        <Sprite image="/Coin.svg" x={200} y={89} scale={1.1} />
         <Text
           text={`Work Sold ${revenue.workSold}m`}
           style={statsTextStyle}
