@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/router'
 import type { GetServerSidePropsContext, NextPage } from "next";
 import dynamic from "next/dynamic";
 import useSWR from "swr";
@@ -63,6 +64,14 @@ const Home: NextPage = () => {
 
   const { data: dbData, error: dbDataError } = useSWR("/api/rev-data", fetcher);
   // const dbData = revenueData;
+
+  const router = useRouter()
+
+
+  // reload window on resize
+  useEffect(() => {
+    window.addEventListener('resize', () => router.reload())
+  })
 
   useEffect(() => {
     console.log("rendered");
