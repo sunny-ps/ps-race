@@ -53,35 +53,35 @@ const StartOverlay = () => {
         </button>
       </div>
 
-      <div className="z-50 relative -bottom-64 grid place-items-center">
+      <div className="z-50 relative -bottom-72">
         <img
           src="/Mascots_Big/Kangaroo_big.png"
-          className="absolute bottom-36 left-28 w-96 z-[100]"
+          className="absolute bottom-40 left-28 w-96 z-[100]"
           alt="kangaroo"
         />
         <img
           src="/Mascots_Big/Koala_big.png"
-          className="absolute w-48 bottom-40 left-[440px] z-[110]"
+          className="absolute w-48 bottom-44 left-[440px] z-[110]"
           alt="koala"
         />
         <img
           src="/Mascots_Big/Quoakka_big.png"
-          className="absolute bottom-40 right-48 w-60"
+          className="absolute bottom-44 right-48 w-60"
           alt="quoakka"
         />
         <img
           src="/Mascots_Big/Spider_big.png"
-          className="absolute bottom-36 right-[400px] w-72"
+          className="absolute bottom-40 right-[400px] w-72"
           alt="spider"
         />
         <img
           src="/Mascots_Big/Croc_big.png"
-          className="absolute bottom-36 right-80 w-[430px]"
+          className="absolute bottom-40 right-80 w-[430px]"
           alt="croc"
         />
         <img
           src="/Mascots_Big/Sushi_big.png"
-          className="absolute bottom-32 left-[360px] w-40 z-[120]"
+          className="absolute bottom-36 left-[360px] w-40 z-[120]"
           alt="sushi"
         />
       </div>

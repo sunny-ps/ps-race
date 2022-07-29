@@ -111,7 +111,7 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
   );
 
   // to decay the speed as the sprite reaches closer and closer to the goal
-  const gamma = 0.8;
+  const gamma = 0.9;
 
   useEffect(() => {
     // set the local bounds of the entire container on the intial render
@@ -175,12 +175,12 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
         setWorkSoldTextPosX(workSoldTextPosX - 6);
       }
 
-      // slide in the revenue gap after the work sold text is visible
+      // slide in the revenue gap after the work sold text is in position
       if (
         workSoldTextPosX <= WORK_SOLD_TEXT_FINAL_POS_X &&
         gapTextPosX > foodRef.current?.x! + 75
       ) {
-        setGapTextPosX(gapTextPosX - 2);
+        setGapTextPosX(gapTextPosX - (2 * (2/app.renderer.resolution)));
       }
     }
 
