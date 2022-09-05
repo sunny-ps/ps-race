@@ -30,12 +30,12 @@ const Counter = () => {
 
   return (
     <>
-      {counter < 4 && counter > 0 ? (
-        <span className="font-[VT323] text-9xl text-white font-bold">
-          {counter}
-        </span>
-      ) : (
-        ""
+      {counter < 4 && counter > 0 && (
+        <div className="h-screen w-screen grid place-items-center fixed">
+          <span className="font-[VT323] text-9xl text-white font-bold">
+            {counter}
+          </span>
+        </div>
       )}
     </>
   );
