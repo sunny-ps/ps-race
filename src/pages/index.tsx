@@ -104,7 +104,7 @@ const Home: NextPage = () => {
       <div className="h-screen w-screen flex flex-col">
         <RaceHeading dbData={dbData} />
         <div className="pl-20 pr-24 pb-12 h-full w-full">
-          <div className="h-full border-black border">
+          <div className="h-full /border-black /border">
             <RaceStage data={shuffledData} />
           </div>
         </div>
