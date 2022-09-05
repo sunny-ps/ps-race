@@ -13,7 +13,6 @@ export default function SignIn<
     ClientSafeProvider
   >
 >({ providers }: { providers: T }) {
-  console.log();
   return (
     <div className="h-screen w-screen grid place-items-center bg-black">
       {Object.values(providers).map((provider) => (
