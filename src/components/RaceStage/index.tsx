@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { Stage, _ReactPixi } from "@inlet/react-pixi";
 import { Application, Rectangle, TextStyle, Loader } from "pixi.js";
@@ -6,6 +6,7 @@ import { AnimatedGIFLoader } from "@pixi/gif";
 
 import { useContainerStore } from "src/store";
 import { RevenueData } from "@types";
+import { useUpdateEffect } from "@hooks";
 
 const RevenueAnimal = dynamic(() => import("../RevenueAnimal/RevenueAnimal"), {
   ssr: false,
@@ -13,21 +14,36 @@ const RevenueAnimal = dynamic(() => import("../RevenueAnimal/RevenueAnimal"), {
 
 interface IPixiRevenueRaceProps {
   data: RevenueData[];
-  dimensions: {
-    width: number;
-    height: number;
-  };
 }
 
-console.log("rendered");
-const RaceStage: FC<IPixiRevenueRaceProps> = ({ data, dimensions }) => {
+const RaceStage: FC<IPixiRevenueRaceProps> = ({ data }) => {
   const containerBounds = useContainerStore(
     (state) => state.containerBounds
   ) as Rectangle;
 
   const [app, setApp] = useState<Application>();
 
+  const [dimensions, setDimensions] = useState({
+    height: 0,
+    width: 0,
+  });
+
   Loader.registerPlugin(AnimatedGIFLoader);
+
+  console.log(app?.view.parentElement?.clientHeight!!);
+  useUpdateEffect(() => {
+    if (!dimensions.height && !dimensions.width) {
+      if (
+        app?.view.parentElement?.clientHeight!! &&
+        app?.view.parentElement.clientWidth
+      ) {
+        setDimensions({
+          height: app?.view.parentElement?.clientHeight!!,
+          width: app?.view.parentElement?.clientWidth!!,
+        });
+      }
+    }
+  });
   /** Quite a bit going on here. Why are grids so hard in PIXI? Anyways, to ensure to the best of my
    * abilities that each container is spaced equally like in a grid, firstly we get the dimensions
    * the container. We then multiply the number of containers (number of industries) with the
@@ -36,13 +52,13 @@ const RaceStage: FC<IPixiRevenueRaceProps> = ({ data, dimensions }) => {
    * outer container/stage from this number, which gives us the remaing space
    */
   const $remainingSpace =
-    dimensions.height - containerBounds.height * data.length;
+    dimensions?.height!! - containerBounds.height * data.length;
 
   /**
    * With the reminaing space, we decide to give each sprite container a gap at the top so that each container
    * is spaced equally. To achieve this, we divide the remaning space with the data length.
    */
-  const $gapSize = $remainingSpace / data.length - 5;
+  const $gapSize = $remainingSpace / data.length;
 
   /**
     Temporary value to space the sprites and rect to display the industry text on the side until
@@ -50,10 +66,11 @@ const RaceStage: FC<IPixiRevenueRaceProps> = ({ data, dimensions }) => {
   */
   const WIDTH_SPACING_GAP = 150;
 
+  // Resize the renderer
   return (
     <Stage
-      width={dimensions.width}
       height={dimensions.height}
+      width={dimensions.width}
       options={{
         backgroundAlpha: 0,
         // resizeTo: screenWindow as Window,
@@ -94,7 +111,7 @@ const RaceStage: FC<IPixiRevenueRaceProps> = ({ data, dimensions }) => {
           height: 65,
         };
 
-        // TODO: temporary fix for growth markets. Fix once this is more formal
+        // TODO: temporary fix for growth markets.
         const headshotAttributes = {
           image: item.headshot,
           industry: item.industry,

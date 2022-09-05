@@ -21,12 +21,13 @@ const StartOverlay = () => {
 
   return (
     <div
-      className={`h-screen w-screen z-40 overflow-x-hidden fixed ${
-        overlayIsClosed ? "-top-full" : "top-0"
+      className={`h-full w-screen max-h-screen z-40 fixed ${
+        overlayIsClosed ? "-top-[2000px]" : "top-0"
       } transition-all duration-500 ease-out`}
       style={{
         backgroundImage: `url('/Start Background.png')`,
         backgroundSize: "cover",
+        backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
       }}
     >
@@ -53,7 +54,7 @@ const StartOverlay = () => {
         </button>
       </div>
 
-      <div className="z-50 relative -bottom-72">
+      <div className="z-50 relative -bottom-64">
         <img
           src="/Mascots_Big/Kangaroo_big.png"
           className="absolute bottom-40 left-28 w-96 z-[100]"

@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { useRouter } from 'next/router'
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/router";
 import type { GetServerSidePropsContext, NextPage } from "next";
 import dynamic from "next/dynamic";
 import useSWR from "swr";
@@ -46,13 +46,6 @@ export const mergeData = (
 };
 
 const Home: NextPage = () => {
-  // instead of using the whole window, we'll put our stage into a container div and use the computed
-  // dimensions of the container instead
-  const [containerDimensions, setContainerDimensions] = useState({
-    width: 0,
-    height: 0,
-  });
-
   const fetcher = async (
     input: RequestInfo,
     init: RequestInit,
@@ -65,44 +58,22 @@ const Home: NextPage = () => {
   const { data: dbData, error: dbDataError } = useSWR("/api/rev-data", fetcher);
   // const dbData = revenueData;
 
-  const router = useRouter()
-
+  const router = useRouter();
 
   // reload window on resize
   useEffect(() => {
-    window.addEventListener('resize', () => router.reload())
-  })
+    const reload = () => router.reload();
+    window.addEventListener("resize", reload);
 
-  useEffect(() => {
-    console.log("rendered");
-    const container = document.querySelector(".stage-container");
+    return () => window.removeEventListener("resize", reload);
+  });
 
-    if (container) {
-      const containerWidth = Number(
-        window
-          .getComputedStyle(container as HTMLDivElement)
-          .getPropertyValue("width")
-          .replace(/[^\d.]/g, "")
-      );
-
-      const containerHeight = Number(
-        window
-          .getComputedStyle(container as HTMLDivElement)
-          .getPropertyValue("height")
-          .replace(/[^\d.]/g, "")
-      );
-
-      setContainerDimensions({
-        width: containerWidth,
-        height: containerHeight,
-      });
-    }
-  }, [dbData]);
+  useEffect(() => {}, [dbData]);
 
   if (dbDataError) {
     return (
       <div className="h-screen w-screen flex flex-col px-40 pb-24">
-        <div className="stage-container shrink h-full /border-black /border-4">
+        <div className="shrink h-full">
           <p>Failed to load.</p>
         </div>
       </div>
@@ -111,7 +82,7 @@ const Home: NextPage = () => {
 
   if (!dbData) {
     return (
-      <div className="stage-container h-screen grid place-items-center">
+      <div className="h-screen grid place-items-center">
         <img
           src="/Loading.gif"
           alt="loading icon"
@@ -126,21 +97,20 @@ const Home: NextPage = () => {
   // const shuffledData = shuffleArray2(revenueData);
 
   return (
-    <>
-      <div className="h-screen w-screen grid place-items-center absolute">
-        <Counter />
-      </div>
-      <div className="h-screen w-screen flex flex-col font-[VT323]">
-        <StartOverlay />
+    <div>
+      <Counter />
+      <StartOverlay />
+
+      <div className="h-screen w-screen flex flex-col">
         <RaceHeading dbData={dbData} />
-        <div className="pl-20 pr-24 pb-12 h-full">
-          <div className="stage-container shrink h-full /border-black /border">
-            <RaceStage dimensions={containerDimensions} data={shuffledData} />
+        <div className="pl-20 pr-24 pb-12 h-full w-full">
+          <div className="h-full border-black border">
+            <RaceStage data={shuffledData} />
           </div>
         </div>
-        <Confetti />
       </div>
-    </>
+      <Confetti />
+    </div>
   );
 };
 

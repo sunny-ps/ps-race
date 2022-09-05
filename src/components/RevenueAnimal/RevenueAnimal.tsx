@@ -56,7 +56,9 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
   const [mascotX, setMascotX] = useState(mascotAttributes.x);
   const [mascotRotation, setMascotRotation] = useState(0);
   const [gapTextPosX, setGapTextPosX] = useState(0);
-  const [workSoldTextPosX, setWorkSoldTextPosX] = useState(foodSpriteAttributes.x! + 250);
+  const [workSoldTextPosX, setWorkSoldTextPosX] = useState(
+    foodSpriteAttributes.x! + 250
+  );
   const [trackLimits, setTrackLimits] = useState({
     start: 0,
     finish: 0,
@@ -120,7 +122,7 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
     setTrackLimits({
       // start: Number(mascotRef.current?.getBounds().x!.toFixed()),
       start: Number(mascotAttributes.x),
-      finish: Number(foodSpriteAttributes.x),
+      finish: Number(foodSpriteAttributes.x!! + 40),
     });
     setGapTextPosX(foodRef.current?.x! + 225);
   }, []);
@@ -180,7 +182,7 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
         workSoldTextPosX <= WORK_SOLD_TEXT_FINAL_POS_X &&
         gapTextPosX > foodRef.current?.x! + 75
       ) {
-        setGapTextPosX(gapTextPosX - (2 * (2/app.renderer.resolution)));
+        setGapTextPosX(gapTextPosX - 2 * (2 / app.renderer.resolution));
       }
     }
 
