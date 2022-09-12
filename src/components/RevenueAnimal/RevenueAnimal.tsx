@@ -90,6 +90,8 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
     fill: "#fff",
   });
 
+  const totalGap = (revenue.revenueGuide * 10 - revenue.workSold * 10) / 10;
+
   const { racingStatus, setIsFinishedRacing, getIsFinishedRacing } =
     useRacingStore(
       (state) => ({
@@ -132,14 +134,28 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
       revenue.workSold,
       revenue.revenueGuide
     );
-    finalPosX.current = Number(
+
+    const finalPosCalc = Number(
       denormalizeValue(
         workSoldPercent,
         trackLimits.start,
         trackLimits.finish
       ).toFixed(0)
     );
+
+    // an industry can earn more than their set goal. This would mean the the mascot would go past
+    // the sushi, which is not ideal. Hence we check if the calculated final position (finalPosCalc)
+    // exceeds the track limits finish (position of sushi). If it does, reset the finalPosX to the
+    // position of the sushi.
+    finalPosX.current =
+      finalPosCalc > trackLimits.finish ? trackLimits.finish : finalPosCalc;
   }, [trackLimits]);
+
+  console.log(
+    industryTextAttributes.text,
+    finalPosX.current,
+    trackLimits.finish
+  );
 
   useUpdateEffect(() => {
     if (racingStatus[industryName] && mascotX! >= finalPosX.current!) {
@@ -231,9 +247,7 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
           anchor={{ x: 0, y: -0.2 }}
         />
         <Text
-          text={`Gap ${
-            (revenue.revenueGuide * 10 - revenue.workSold * 10) / 10
-          }m`}
+          text={`Gap ${totalGap < 0 ? 0 : totalGap}m`}
           style={statsTextStyle}
           x={60}
           anchor={{ x: 0, y: -0.5 }}

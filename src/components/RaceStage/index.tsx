@@ -30,7 +30,6 @@ const RaceStage: FC<IPixiRevenueRaceProps> = ({ data }) => {
 
   Loader.registerPlugin(AnimatedGIFLoader);
 
-  console.log(app?.view.parentElement?.clientHeight!!);
   useUpdateEffect(() => {
     if (!dimensions.height && !dimensions.width) {
       if (
