@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import dynamic from "next/dynamic";
 import { Stage, _ReactPixi } from "@inlet/react-pixi";
 import { Application, Rectangle, TextStyle, Loader } from "pixi.js";
