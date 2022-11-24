@@ -49,6 +49,7 @@ const StartOverlay = () => {
           style={{
             boxShadow: "7px 7px 0px 0px rgba(0,0,0,0.24)",
           }}
+          role="button"
         >
           Lets go!
         </button>
