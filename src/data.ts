@@ -5,7 +5,7 @@ export const revenueData: RevenueData[] = [
     mascot: "kangaroo",
     industry: "Financial Services",
     image: "/Race_Assets/Kangaroo.svg",
-    headshot: "/Headshots/neville.gif",
+    headshot: "/Headshots/pennybags.png",
     rectColor: "#FFA928",
     rectBorder: "#FF7006",
     revenue: {
@@ -29,7 +29,6 @@ export const revenueData: RevenueData[] = [
     mascot: "croc",
     industry: "Growth Markets",
     image: "/Race_Assets/Croc.svg",
-    // headshot: "/Headshots/johnson.gif",
     headshot: "/Headshots/gm.png",
     rectColor: "#52C8FF",
     rectBorder: "#1A9DFF",
