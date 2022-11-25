@@ -31,18 +31,18 @@ const RaceStage: FC<IPixiRevenueRaceProps> = ({ data }) => {
   Loader.registerPlugin(AnimatedGIFLoader);
 
   useUpdateEffect(() => {
-    if (!dimensions.height && !dimensions.width) {
-      if (
-        app?.view.parentElement?.clientHeight!! &&
-        app?.view.parentElement.clientWidth
-      ) {
-        setDimensions({
-          height: app?.view.parentElement?.clientHeight!!,
-          width: app?.view.parentElement?.clientWidth!!,
-        });
-      }
+    // if (!dimensions.height && !dimensions.width) {
+    if (
+      app?.view.parentElement?.clientHeight &&
+      app?.view.parentElement.clientWidth
+    ) {
+      setDimensions({
+        height: app?.view.parentElement?.clientHeight!!,
+        width: app?.view.parentElement?.clientWidth!!,
+      });
     }
-  });
+    // }
+  }, [app?.view.parentElement?.clientHeight]);
   /** Quite a bit going on here. Why are grids so hard in PIXI? Anyways, to ensure to the best of my
    * abilities that each container is spaced equally like in a grid, firstly we get the dimensions
    * the container. We then multiply the number of containers (number of industries) with the

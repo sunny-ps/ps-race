@@ -101,7 +101,7 @@ const Home: NextPage = () => {
       <Counter />
       <StartOverlay />
 
-      <div className="h-screen w-screen flex flex-col">
+      <div className="h-screen max-w-screen flex flex-col">
         <RaceHeading dbData={dbData} />
         <div className="pl-20 pr-24 pb-12 h-full w-full">
           <div className="h-full /border-black /border">
