@@ -25,7 +25,7 @@ const StartOverlay = () => {
         overlayIsClosed ? "-top-[2000px]" : "top-0"
       } transition-all duration-500 ease-out`}
       style={{
-        backgroundImage: `url('/Start Background.png')`,
+        backgroundImage: `url('/Backgrounds/Start Background.png')`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",

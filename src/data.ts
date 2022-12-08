@@ -29,7 +29,7 @@ export const revenueData: RevenueData[] = [
     mascot: "croc",
     industry: "Growth Markets",
     image: "/Race_Assets/Croc.svg",
-    headshot: "/Headshots/gm.png",
+    headshot: "/Headshots/georgia.gif",
     rectColor: "#52C8FF",
     rectBorder: "#1A9DFF",
     revenue: {

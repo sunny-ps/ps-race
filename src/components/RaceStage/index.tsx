@@ -114,9 +114,9 @@ const RaceStage: FC<IPixiRevenueRaceProps> = ({ data }) => {
         const headshotAttributes = {
           image: item.headshot,
           industry: item.industry,
-          width: item.industry === "Growth Markets" ? 110 : 55,
+          width: 55, // item.industry === "Growth Markets" ? 110 : 55,
           height: 55,
-          anchor: { x: item.industry === "Growth Markets" ? 0.4 : 0.6, y: 0.5 },
+          anchor: { x: 0.6, y: 0.5 }, // { x: item.industry === "Growth Markets" ? 0.4 : 0.6, y: 0.5 },
           x: 70,
           y: 40,
         };
