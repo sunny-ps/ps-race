@@ -17,14 +17,34 @@ a {
   text-decoration: none;
 }
 
-.revenue-rows {
+.revenue-table thead {
+  @apply bg-[#362f4b] text-white;
+}
+
+.revenue-table thead tr th {
+  @apply py-3 px-2 font-light;
+}
+
+.revenue-table thead tr th:first-child {
+  @apply text-left;
+}
+
+.revenue-table thead tr th:not(:first-child) {
+  @apply text-right;
+}
+
+.revenue-table .revenue-rows {
   @apply border-[#b0b0b0] border-r border-l;
 }
 
-.revenue-rows td:not(:first-child) {
+.revenue-table .revenue-rows:nth-child(odd) {
+  @apply bg-[#eeeeee];
+}
+
+.revenue-table .revenue-rows td:not(:first-child) {
   @apply text-right px-12;
 }
 
-.revenue-rows > * {
+.revenue-table .revenue-rows > * {
   @apply py-3;
 }
