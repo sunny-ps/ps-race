@@ -1,21 +1,12 @@
 import { useState } from "react";
 import { getQuarter, getYear } from "date-fns";
-import shallow from "zustand/shallow";
 
-import { useRacingStore, useSoundStore } from "src/store";
+import { useRacingStore } from "src/store";
 
 const StartOverlay = () => {
   const [overlayIsClosed, setOverlayIsClosed] = useState(false);
 
   const setIsPaused = useRacingStore((state) => state.setIsPaused);
-
-  const { playRaceAudio, isMute } = useSoundStore(
-    (state) => ({
-      playRaceAudio: state.playRaceAudio,
-      isMute: state.isMute,
-    }),
-    shallow
-  );
 
   const currDate = new Date();
 
@@ -42,7 +33,6 @@ const StartOverlay = () => {
           onClick={() => {
             setOverlayIsClosed(true);
             setIsPaused(true);
-            playRaceAudio();
           }}
           className="bg-[#F7C804] px-8 py-2 w-auto border-[#E68F21] border-[6px] text-4xl 
               tracking-widest hover:-translate-y-1 active:translate-y-1"

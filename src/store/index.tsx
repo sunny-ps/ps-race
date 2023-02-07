@@ -48,6 +48,7 @@ export const useContainerStore = create<ContainerStore>((set) => ({
   setContainerBounds: (attrs) => set({ containerBounds: { ...attrs } }),
 }));
 
+// DEPRECATED: to be removed in future iterations
 export const useSoundStore = create<SoundStore>((set, get) => ({
   raceAudio:
     typeof Audio !== "undefined"
