@@ -3,14 +3,15 @@ import { compose, reverse, tail } from "ramda";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { RevenueStatus } from "@types";
+
 interface IRevenueDataFormProps {
   revData: any[];
 }
 
 const RevenueDataForm: FC<IRevenueDataFormProps> = ({ revData }) => {
-  const [selectedOption, setSelectedOption] = useState<"quarter" | "fullyear">(
-    "quarter"
-  );
+  const [selectedOption, setSelectedOption] =
+    useState<RevenueStatus>("quarter");
 
   // remove the first and last rows, functionally
   const removeFirstAndLastRows = compose<any[], any[], any[], any[], any[]>(
@@ -19,15 +20,6 @@ const RevenueDataForm: FC<IRevenueDataFormProps> = ({ revData }) => {
     reverse,
     tail
   );
-
-  const handleOptionChange = (event: FormEvent<HTMLSelectElement>) => {
-    setSelectedOption(event.currentTarget.value as "quarter" | "fullyear");
-
-    if (event.currentTarget.value === "fullyear")
-      toast.warning(
-        "Selecting 'Full year', will change the Quarter text in the race page to Full Year. If this intended, please ignore this warning"
-      );
-  };
 
   const handleSubmit = async () => {
     const modifiedRevData = removeFirstAndLastRows(revData);
@@ -79,18 +71,27 @@ const RevenueDataForm: FC<IRevenueDataFormProps> = ({ revData }) => {
           name="data-option"
           className="px-1 py-2"
           value={selectedOption}
-          onChange={(e) => handleOptionChange(e)}
+          onChange={(e) =>
+            setSelectedOption(e.currentTarget.value as RevenueStatus)
+          }
         >
           <option value="quarter">Current quarter</option>
           <option value="fullyear">Full year</option>
         </select>
       </div>
 
+      {selectedOption === "fullyear" && (
+        <div className="p-4 bg-yellow-400 rounded-md">
+          Selecting &apos;Full year&apos;, will change the Quarter text in the
+          race page to Full Year. If this intended, please ignore this warning
+        </div>
+      )}
+
       <input
         type="submit"
         value="Upload"
-        className="w-1/2 text-gray-900 bg-[#F7BE38] hover:brightness-95 focus:ring-4
-                focus:outline-none focus:ring-[#F7BE38]/50 font-medium text-sm py-4
+        className="w-48 text-slate-100 bg-green-600 hover:brightness-95 focus:ring-4
+                focus:outline-none focus:ring-[#F7BE38]/50 font-medium text-md py-3
                 text-center"
       />
 

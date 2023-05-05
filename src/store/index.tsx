@@ -1,12 +1,18 @@
 import create from "zustand";
 
 import {
+  RevenueStatusStore,
   RacingStore,
   ContainerStore,
   Industries,
   SoundStore,
   ConfettiStore,
 } from "@types";
+
+export const useRevenueStatus = create<RevenueStatusStore>((set) => ({
+  revenueType: "quarter",
+  setRevenueType: (type) => set({ revenueType: type }),
+}));
 
 export const useRacingStore = create<RacingStore>((set, get) => ({
   isPaused: false,

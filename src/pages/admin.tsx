@@ -38,7 +38,7 @@ const Admin = () => {
   }
 
   return (
-    <div className="grid place-items-center font-sans bg-slate-200 min-h-screen">
+    <div className="grid place-items-center font-sans bg-slate-100 min-h-screen">
       <div>
         <h1>Upload a new xlsx file</h1>
         <input
@@ -52,7 +52,7 @@ const Admin = () => {
 
       {data.length !== 0 && (
         <>
-          <table className="revenue-table mt-3 bg-slate-100 text-black border-[#b0b0b0] border-b border-t">
+          <table className="revenue-table mt-3 text-black border-[#b0b0b0] border-b">
             <thead>
               <tr>
                 {data[0]?.map((item: string[], idx: number) => (
