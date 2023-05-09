@@ -11,7 +11,7 @@ export default async function handler(
 
   switch (req.method) {
     case "GET":
-      const response = db.collection("data").find({});
+      const response = db.collection("admin").find({});
       const data = await response.toArray();
 
       res.status(200).json(data);
@@ -23,7 +23,7 @@ export default async function handler(
       const { dataType } = req.body;
 
       try {
-        await db.collection("data").updateOne(
+        await db.collection("admin").updateOne(
           { type: "data" },
           {
             $set: { revenueType: dataType },

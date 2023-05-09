@@ -1,16 +1,19 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import type { GetServerSidePropsContext, NextPage } from "next";
 import dynamic from "next/dynamic";
 import useSWR from "swr";
 import { map } from "ramda";
+import { getSession } from "next-auth/react";
 
 import { RaceHeading, StartOverlay, Counter, Confetti } from "@components";
 import { shuffleArray2 } from "@utils/shuffleArray";
+
+import { useRevenueStatus } from "src/store";
+
 import { DBData, RevenueData } from "@types";
 
 import { revenueData } from "src/data";
-import { getSession } from "next-auth/react";
 
 const RaceStage = dynamic(() => import("../components/RaceStage"), {
   ssr: false,
@@ -46,6 +49,8 @@ export const mergeData = (
 };
 
 const Home: NextPage = () => {
+  const router = useRouter();
+
   const fetcher = async (
     input: RequestInfo,
     init: RequestInit,
@@ -58,7 +63,18 @@ const Home: NextPage = () => {
   const { data: dbData, error: dbDataError } = useSWR("/api/rev-data", fetcher);
   // const dbData = revenueData;
 
-  const router = useRouter();
+  const { data: statusData, error: statusDataError } = useSWR(
+    "/api/admin-data",
+    fetcher
+  );
+
+  const { setRevenueType } = useRevenueStatus((state) => ({
+    setRevenueType: state.setRevenueType,
+  }));
+
+  useEffect(() => {
+    statusData && setRevenueType(statusData[0].revenueType);
+  }, []);
 
   // reload window on resize
   useEffect(() => {
