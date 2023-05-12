@@ -31,6 +31,13 @@ export interface RevenueData extends MascotAttribute {
   revenue: Revenue;
 }
 
+export type RevenueStatus = "quarter" | "fullyear";
+
+export interface RevenueStatusStore {
+  revenueType: RevenueStatus;
+  setRevenueType: (type: RevenueStatus) => void;
+}
+
 export interface RacingStore {
   isPaused: boolean;
   setIsPaused: (bool: boolean) => void;

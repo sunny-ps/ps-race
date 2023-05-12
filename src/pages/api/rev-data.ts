@@ -18,6 +18,7 @@ export default async function handler(
 
       break;
 
+    case "PUT":
     case "PATCH":
       const { revData } = req.body;
 
@@ -38,8 +39,6 @@ export default async function handler(
       });
 
       return res.status(200).send("Revenue data has been successfully updated");
-
-      break;
 
     default:
       res.status(405).end("Method Not Allowed");

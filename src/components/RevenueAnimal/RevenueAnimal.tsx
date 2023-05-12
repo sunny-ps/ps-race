@@ -114,9 +114,6 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
     shallow
   );
 
-  // to decay the speed as the sprite reaches closer and closer to the goal
-  const gamma = 0.9;
-
   useEffect(() => {
     // set the local bounds of the entire container on the intial render
     setContainerBounds(containerRef.current?.getLocalBounds()!);
@@ -164,13 +161,6 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
     )
       launchConfetti();
   }, [rectWidth]);
-
-  useInterval(
-    () => {
-      speedConstant.current = speedConstant.current * gamma;
-    },
-    racingStatus[industryName] ? 3000 : null
-  );
 
   useTick((delta) => {
     counter.current += 0.5 * delta;
