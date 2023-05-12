@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { getQuarter, getYear } from "date-fns";
 
-import { useRacingStore } from "src/store";
+import { useRevenueStatus, useRacingStore } from "src/store";
 
 const StartOverlay = () => {
   const [overlayIsClosed, setOverlayIsClosed] = useState(false);
 
   const setIsPaused = useRacingStore((state) => state.setIsPaused);
+  const revenueType = useRevenueStatus((state) => state.revenueType);
 
   const currDate = new Date();
 
@@ -23,9 +24,12 @@ const StartOverlay = () => {
       }}
     >
       <div className="h-4/6 flex items-center justify-center flex-col">
-        <h1 className="text-6xl text-[#FDD839] mb-5">{`Quarter ${getQuarter(
-          currDate
-        )} ${getYear(currDate)}`}</h1>
+        <h1 className="text-6xl text-[#FDD839] mb-5">
+          {revenueType === "quarter"
+            ? `Quarter ${getQuarter(currDate)} `
+            : "Full Year "}
+          {getYear(currDate)}
+        </h1>
         <div className="h-auto w-7/12 mb-11">
           <img src="/Start Heading.gif" alt="start heading" />
         </div>

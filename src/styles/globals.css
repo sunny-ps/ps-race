@@ -17,12 +17,12 @@ a {
   text-decoration: none;
 }
 
-.revenue-table thead {
-  @apply bg-[#362f4b] text-white;
-}
+/* .revenue-table thead { */
+/*   @apply border-b-2; */
+/* } */
 
 .revenue-table thead tr th {
-  @apply py-3 px-2 font-light;
+  @apply py-3 px-2 font-light border-b-2 border-[#b0b0b0];
 }
 
 .revenue-table thead tr th:first-child {
@@ -34,11 +34,7 @@ a {
 }
 
 .revenue-table .revenue-rows {
-  @apply border-[#b0b0b0] border-r border-l;
-}
-
-.revenue-table .revenue-rows:nth-child(odd) {
-  @apply bg-[#eeeeee];
+  @apply border-[#b0b0b0] border-b;
 }
 
 .revenue-table .revenue-rows td:not(:first-child) {

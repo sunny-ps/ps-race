@@ -1,13 +1,18 @@
-import { FC } from "react";
+import { useState, FormEvent, FC } from "react";
 import { compose, reverse, tail } from "ramda";
 import { ToastContainer, toast, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import { RevenueStatus } from "@types";
 
 interface IRevenueDataFormProps {
   revData: any[];
 }
 
 const RevenueDataForm: FC<IRevenueDataFormProps> = ({ revData }) => {
+  const [selectedOption, setSelectedOption] =
+    useState<RevenueStatus>("quarter");
+
   // remove the first and last rows, functionally
   const removeFirstAndLastRows = compose<any[], any[], any[], any[], any[]>(
     reverse,
@@ -15,6 +20,7 @@ const RevenueDataForm: FC<IRevenueDataFormProps> = ({ revData }) => {
     reverse,
     tail
   );
+
   const handleSubmit = async () => {
     const modifiedRevData = removeFirstAndLastRows(revData);
 
@@ -54,20 +60,44 @@ const RevenueDataForm: FC<IRevenueDataFormProps> = ({ revData }) => {
 
   return (
     <form
-      className="flex flex-col justify-evenly mt-11 w-[30%] h-[200px]"
+      className="flex flex-col justify-between place-items-center w-[40%] h-[200px]"
       onSubmit={handleSubmit}
     >
+      <div className="flex items-center">
+        <label htmlFor="data-option" className="mr-2">
+          Data is for
+        </label>
+        <select
+          name="data-option"
+          className="px-1 py-2"
+          value={selectedOption}
+          onChange={(e) =>
+            setSelectedOption(e.currentTarget.value as RevenueStatus)
+          }
+        >
+          <option value="quarter">Current quarter</option>
+          <option value="fullyear">Full year</option>
+        </select>
+      </div>
+
+      {selectedOption === "fullyear" && (
+        <div className="p-4 bg-yellow-400 rounded-md">
+          Selecting &apos;Full year&apos;, will change the Quarter text in the
+          race page to Full Year. If this intended, please ignore this warning
+        </div>
+      )}
+
       <input
         type="submit"
-        value="upload"
-        className="text-gray-900 bg-[#F7BE38] hover:bg-[#F7BE38]/90 focus:ring-4
-                focus:outline-none focus:ring-[#F7BE38]/50 font-medium text-sm px-5 py-2.5
+        value="Upload"
+        className="w-48 text-slate-100 bg-green-600 hover:brightness-95 focus:ring-4
+                focus:outline-none focus:ring-[#F7BE38]/50 font-medium text-md py-3
                 text-center"
       />
+
       <ToastContainer
         position="top-center"
         autoClose={5000}
-        hideProgressBar
         newestOnTop={false}
         closeOnClick
         rtl={false}
