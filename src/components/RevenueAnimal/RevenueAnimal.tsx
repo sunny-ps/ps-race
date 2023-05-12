@@ -124,7 +124,7 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
     setTrackLimits({
       // start: Number(mascotRef.current?.getBounds().x!.toFixed()),
       start: Number(mascotAttributes.x),
-      finish: Number(foodSpriteAttributes.x!! + 40),
+      finish: Number(foodSpriteAttributes.x!! + 10),
     });
     setGapTextPosX(foodRef.current?.x! + 225);
   }, []);
@@ -150,12 +150,6 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
     finalPosX.current =
       finalPosCalc > trackLimits.finish ? trackLimits.finish : finalPosCalc;
   }, [trackLimits]);
-
-  console.log(
-    industryTextAttributes.text,
-    finalPosX.current,
-    trackLimits.finish
-  );
 
   useUpdateEffect(() => {
     if (racingStatus[industryName] && mascotX! >= finalPosX.current!) {
@@ -198,7 +192,7 @@ const RevenueAnimal: FC<IRevenueAnimal> = ({
         workSoldTextPosX <= WORK_SOLD_TEXT_FINAL_POS_X &&
         gapTextPosX > foodRef.current?.x! + 75
       ) {
-        setGapTextPosX(gapTextPosX - 2 * (2 / app.renderer.resolution));
+        setGapTextPosX(gapTextPosX - 2);
       }
     }
 
